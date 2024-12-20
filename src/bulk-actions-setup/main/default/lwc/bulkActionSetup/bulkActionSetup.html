@@ -1,0 +1,300 @@
+<template>
+  <div class="container">
+    <template lwc:if={isDeploymentLinkVisible}>
+      <lightning-card>
+        <div class="slds-clearfix slds-p-around_large">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-12">
+              <lightning-icon
+                class="slds-float_right slds-p-around_large"
+                icon-name="standard:work_queue"
+                alternative-text="Done"
+                title="Done"
+                onclick={handleDone}
+                size="medium"
+              ></lightning-icon>
+            </div>
+            <div class="slds-col slds-size_11-of-12">
+              <div class="slds-text-heading_medium slds-p-around_large">
+                Deployment for creating bulk action configuration
+                {bulkActionName} has been queued with deployment Id: {jobId},<br />
+                you will receive a notification on deployment status once
+                deployment is completed.
+              </div>
+              <lightning-button
+                class="slds-float_right slds-p-around_small"
+                variant="brand"
+                label="Done"
+                onclick={navigateToHome}
+                icon-name="utility:success"
+              ></lightning-button>
+            </div>
+          </div>
+        </div>
+      </lightning-card>
+    </template>
+    <template lwc:else>
+      <lightning-card>
+        <div class="slds-grid slds-wrap">
+          <div class="slds-col slds-size_12-of-12">
+            <div class="slds-clearfix slds-p-horizontal_small">
+              <div class="slds-text-heading_small">
+                <lightning-progress-indicator
+                  current-step={selectedStep}
+                  type="path"
+                  variant="shade"
+                >
+                  <lightning-progress-step
+                    label="Bulk Action Details"
+                    value="Step1"
+                  ></lightning-progress-step>
+                  <lightning-progress-step
+                    label="Preview Screen Details"
+                    value="Step2"
+                  ></lightning-progress-step>
+                  <lightning-progress-step
+                    label="Evaluation Flow Details"
+                    value="Step3"
+                  ></lightning-progress-step>
+                  <lightning-progress-step
+                    label="Input Flow Details"
+                    value="Step4"
+                  ></lightning-progress-step>
+                  <lightning-progress-step
+                    label="Action Flow Details"
+                    value="Step5"
+                  ></lightning-progress-step>
+                  <lightning-progress-step
+                    label="Review Configuration"
+                    value="Step6"
+                  ></lightning-progress-step>
+                </lightning-progress-indicator>
+              </div>
+            </div>
+          </div>
+          <!-- Left Section : START -->
+          <div class="slds-col slds-size_4-of-12">
+            <div
+              class="slds-scoped-notification slds-m-bottom_large slds-m-around_medium slds-scoped-notification_light"
+            >
+              <!-- STEP 1 : Action Details : START -->
+              <template lwc:if={isStep1}>
+                <lightning-input
+                  type="text"
+                  label="Enter Bulk Action Name"
+                  onchange={setBulkActionName}
+                  value={bulkActionName}
+                  class="slds-m-bottom_large"
+                  required
+                ></lightning-input>
+                <lightning-input
+                  type="text"
+                  label="Enter Object API Name"
+                  onchange={setBulkActionObject}
+                  value={bulkActionObject}
+                  class="slds-m-bottom_large"
+                  required
+                ></lightning-input>
+                <lightning-input
+                  type="toggle"
+                  label="Do you need to restrict this action to certain users?"
+                  message-toggle-active="Yes, only for specific users"
+                  message-toggle-inactive="No, this action should be available for all users"
+                  value={isRestrictedAction}
+                  checked={isRestrictedAction}
+                  onchange={handleRequiredPermissionToggleChange}
+                  class="slds-m-bottom_large"
+                ></lightning-input>
+                <template lwc:if={isRestrictedAction}>
+                  <lightning-input
+                    type="text"
+                    label="Enter Custom Permission API Name"
+                    onchange={setRequiredPermission}
+                    value={requiredPermissionName}
+                    class="slds-m-bottom_large"
+                    required
+                  ></lightning-input>
+                </template>
+              </template>
+              <!-- STEP 1 : Action Details : END -->
+              <!-- STEP 2 : Preview Screen Details : START -->
+              <template lwc:if={isStep2}>
+                <lightning-input
+                  type="text"
+                  label="Enter Preview Screen Field Set API Name"
+                  onchange={setFieldSet}
+                  value={previewFieldSetName}
+                  class="slds-m-bottom_large"
+                  required
+                ></lightning-input>
+                <br />
+                <lightning-input
+                  type="text"
+                  label="Enter Preview Screen Button Label"
+                  value={previewButtonName}
+                  onchange={setPreviewButtonName}
+                  class="slds-m-bottom_large"
+                ></lightning-input>
+              </template>
+              <!-- STEP 2 : Preview Screen Details : END -->
+              <!-- STEP 3 : Evaluation Flow Details : START -->
+              <template lwc:if={isStep3}>
+                <lightning-input
+                  type="toggle"
+                  label="Do you need any filter criteria for the selected records?"
+                  message-toggle-active="Yes, I need to filter records meeting certain condition"
+                  message-toggle-inactive="No, I want to process all selected records"
+                  value={isEvalFlowRequired}
+                  checked={isEvalFlowRequired}
+                  onchange={handleEvalFlowToggleChange}
+                  class="slds-m-bottom_large"
+                ></lightning-input>
+                <template lwc:if={isEvalFlowRequired}>
+                  <lightning-input
+                    type="text"
+                    label="Enter Evaluation Flow API Name"
+                    value={evalFlowAPIName}
+                    onchange={setEvalFlow}
+                    class="slds-m-bottom_large"
+                    required
+                  ></lightning-input>
+                  <br />
+                  <lightning-input
+                    type="text"
+                    label="What message would you like to display for records not meeting action criteria?"
+                    value={evalFlowMessage}
+                    onchange={setEvalFlowMessage}
+                    class="slds-m-bottom_large"
+                  ></lightning-input>
+                </template>
+              </template>
+              <!-- STEP 3 : Evaluation Flow Details : END -->
+              <!-- STEP 4 : Input Flow Details : START -->
+              <template lwc:if={isStep4}>
+                <lightning-input
+                  type="toggle"
+                  label="Do you need to capture any additional inputs that are required to process an action?"
+                  message-toggle-active="Yes, I want to capture inputs from user"
+                  message-toggle-inactive="No, My action do not need any additional inputs"
+                  value={isInputFlowRequired}
+                  checked={isInputFlowRequired}
+                  onchange={handleInputFlowToggleChange}
+                  class="slds-m-bottom_large"
+                ></lightning-input>
+                <br />
+                <template lwc:if={isInputFlowRequired}>
+                  <lightning-input
+                    type="text"
+                    label="Enter Input Flow API Name"
+                    value={inputFlowAPIName}
+                    onchange={setInputFlowAPIName}
+                    class="slds-m-bottom_large"
+                    required
+                  ></lightning-input>
+                </template>
+              </template>
+              <!-- STEP 4 : Input Flow Details : END -->
+              <!-- STEP 5 : Action Flow Details : START -->
+              <template lwc:if={isStep5}>
+                <lightning-input
+                  type="text"
+                  label="Enter Action Flow API Name"
+                  value={actionFlowAPIName}
+                  onchange={setActionFlow}
+                  class="slds-m-bottom_large"
+                  required
+                ></lightning-input
+                ><br />
+                <lightning-input
+                  type="toggle"
+                  label="Is your action flow processing records asynchronously?"
+                  message-toggle-active="Yes"
+                  message-toggle-inactive="No"
+                  value={isActionInAsync}
+                  checked={isActionInAsync}
+                  onchange={handleAsyncActionToggleChange}
+                  class="slds-m-bottom_large"
+                ></lightning-input>
+                <template lwc:if={isActionInAsync}>
+                  <lightning-input
+                    type="text"
+                    label="Enter Message to be displayed to the user once action is enqueued"
+                    class="slds-m-bottom_large"
+                    value={customMessage}
+                    onchange={setCustomMessage}
+                  ></lightning-input>
+                </template>
+              </template>
+              <!-- STEP 5 : Action Flow Details : END -->
+              <!-- STEP 6 : Review Config : START -->
+              <template lwc:if={isStep6}>
+                <c-bulk-action-setup-config-details
+                  config={config}
+                  mode="edit"
+                ></c-bulk-action-setup-config-details>
+              </template>
+              <!-- STEP 6 : Review Config : END -->
+              <!-- Action Buttons : START -->
+              <div
+                class="slds-clearfix slds-m-bottom_large slds-m-around_medium"
+              >
+                <lightning-button
+                  variant="brand"
+                  label="Go Back To Bulk Actions List"
+                  title="Back"
+                  onclick={navigateToHome}
+                  class="slds-m-left_x-small slds-float_left"
+                ></lightning-button>
+                <template lwc:if={showPrev}>
+                  <lightning-button
+                    variant="brand"
+                    label="Previous"
+                    title="Previous"
+                    onclick={handlePrev}
+                    class="slds-m-left_x-small slds-float_left"
+                  ></lightning-button>
+                </template>
+                <template lwc:if={isFinalStep}>
+                  <lightning-button
+                    variant="brand"
+                    label={configButtonValue}
+                    title={configButtonValue}
+                    onclick={insertConfiguration}
+                    class="slds-m-left_x-small slds-float_right"
+                  ></lightning-button>
+                </template>
+                <template lwc:else>
+                  <lightning-button
+                    variant="brand"
+                    label="Next"
+                    title="Next"
+                    onclick={handleNext}
+                    class="slds-m-left_x-small slds-float_right"
+                  ></lightning-button>
+                </template>
+              </div>
+              <!-- Action Buttons : END -->
+            </div>
+          </div>
+          <!-- Left Section : END -->
+          <!-- Right Section : START -->
+          <div class="slds-col slds-size_8-of-12">
+            <template lwc:if={isFinalStep}>
+              <template lwc:if={flowDetails}>
+                <c-bulk-action-setup-flow-builder-guide
+                  flow-details={flowDetails}
+                ></c-bulk-action-setup-flow-builder-guide>
+              </template>
+            </template>
+            <template lwc:else>
+              <c-bulk-action-setup-preview
+                selected-step={selectedStep}
+              ></c-bulk-action-setup-preview>
+            </template>
+          </div>
+          <!-- Right Section : END -->
+        </div>
+      </lightning-card>
+    </template>
+  </div>
+</template>

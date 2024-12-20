@@ -1,0 +1,59 @@
+<template>
+  <template lwc:if={showTable}>
+    <div class="slds-p-top_medium">
+      <!-- Info Section Start -->
+      <template lwc:if={message}>
+        <c-bulk-action-info message={message}></c-bulk-action-info>
+      </template>
+      <!-- Info Section End -->
+      <div class="section">
+        <h3
+          class="slds-section__title slds-theme_shade slds-p-top_medium slds-p-bottom_medium"
+        >
+          <span
+            class="slds-truncate slds-p-horizontal_small"
+            title={headerTitle}
+            ><lightning-icon
+              class={iconClass}
+              size="xx-small"
+              icon-name={headerIcon}
+              alternative-text={headerTitle}
+              title={headerTitle}
+            ></lightning-icon>
+            {headerTitle}</span
+          >
+        </h3>
+        <template lwc:if={errorMessage}>
+          <div class="container slds-m-around_medium">
+            <div
+              class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_small slds-p-around_small"
+              role="alert"
+            >
+              <span class="slds-assistive-text">error</span>
+              <span
+                class="slds-icon_container slds-icon-utility-error slds-m-right_x-small"
+                title={errorMessage}
+              >
+                <lightning-icon
+                  class="error-icn"
+                  icon-name="utility:error"
+                  alternative-text="Error"
+                  title="Error"
+                ></lightning-icon>
+              </span>
+              <h2>{errorMessage}</h2>
+            </div>
+          </div>
+        </template>
+        <lightning-datatable
+          hide-checkbox-column
+          key-field="id"
+          data={formattedRows}
+          columns={formattedColumns}
+          onrowaction={handleRowAction}
+        >
+        </lightning-datatable>
+      </div>
+    </div>
+  </template>
+</template>

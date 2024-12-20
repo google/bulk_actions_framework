@@ -1,0 +1,138 @@
+<template>
+  <div class="slds-m-around_medium">
+    <!-- Step 1 START -->
+    <template lwc:if={isSelectStep1}>
+      <lightning-carousel>
+        <lightning-carousel-image
+          src={snapshot1_1}
+          header="Action Name"
+          description="How action label is displayed from configuration property"
+          alternative-text="How action label is displayed from configuration property"
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+        <lightning-carousel-image
+          src={snapshot1_2}
+          header="Required Permission"
+          description="If user does not have required permission, clicking on bulk action button gives error"
+          alternative-text="If user does not have required permission, clicking on bulk action button gives error"
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+      </lightning-carousel>
+    </template>
+    <!-- Step 1 END -->
+    <!-- Step 2 START -->
+    <template lwc:if={isSelectStep2}>
+      <lightning-carousel>
+        <lightning-carousel-image
+          src={snapshot2_1}
+          header="Preview Screen Field Set"
+          description="All of the fields on preview screen are displayed from the field set configured"
+          alternative-text="All of the fields on preview screen are displayed from the field set configured"
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+        <lightning-carousel-image
+          src={snapshot2_2}
+          header="Preview Screen Button Label"
+          description="Configure the relavent name for the action button on the preview screen"
+          alternative-text="Configure the relavent name for the action button on the preview screen"
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+      </lightning-carousel>
+    </template>
+    <!-- Step 2 END -->
+    <!-- Step 3 START -->
+    <template lwc:if={isSelectStep3}>
+      <lightning-carousel>
+        <lightning-carousel-image
+          src={snapshot3_1}
+          header="Filter Conditions"
+          description="You can set the filter criteria for the action, records meeting criteria will be eligible against the action to be executed. Not meeting records will be skipped."
+          alternative-text="You can set the filter criteria for the action, records meeting criteria will be eligible against the action to be executed. Not meeting records will be skipped."
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+        <lightning-carousel-image
+          src={snapshot3_2}
+          header="Why some records are displayed as not meeting?"
+          description="Information screen to explain end user about the criteria, use user friendly language while setting up this message, explaining high level criteria for the action"
+          alternative-text="Information screen to explain end user about the criteria, use user friendly language while setting up this message, explaining high level criteria for the action"
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+        <lightning-carousel-image
+          src={snapshot3_3}
+          header="Records updated in between? Don`t worry we are covered"
+          description="If user stays long on the page and records updated inbetween, user can manually force to execute the evaluation criteria again. Table will be refreshed again to reflect the changes."
+          alternative-text="If user stays long on the page and records updated inbetween, user can manually force to execute the evaluation criteria again. Table will be refreshed again to reflect the changes."
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+      </lightning-carousel>
+    </template>
+    <!-- Step 3 END -->
+    <!-- Step 4 START -->
+    <template lwc:if={isSelectStep4}>
+      <lightning-carousel>
+        <lightning-carousel-image
+          src={snapshot4_1}
+          header="Need to capture input?"
+          description="Use input flow to capture any inputs that are needed for action flow."
+          alternative-text="Use input flow to capture any inputs that are needed for action flow."
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+        <lightning-carousel-image
+          src={snapshot4_2}
+          header="Need to validate entered data?"
+          description="Use screen flow`s default validation feature to validate the entered data."
+          alternative-text="Use screen flow`s default validation feature to validate the entered data."
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+      </lightning-carousel>
+    </template>
+    <!-- Step 4 END -->
+    <!-- Step 5 START -->
+    <template lwc:if={isSelectStep5}>
+      <lightning-carousel>
+        <lightning-carousel-image
+          src={snapshot5_1}
+          header="Action Status"
+          description="Last two columns in table displays action status for each record."
+          alternative-text="Last two columns in table displays action status for each record."
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+        <lightning-carousel-image
+          src={snapshot5_2}
+          header="Action Error for record?"
+          description="Any record failed to execute action will have 'Error' in the action status column, user can get details about error on clicking button."
+          alternative-text="Any record failed to execute action will have 'Error' in the action status column, user can get details about error on clicking button."
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+        <lightning-carousel-image
+          src={snapshot5_3}
+          header="Know why record got failed"
+          description="Get the error details, fix it and repeat the process if user wants to reprocess failuer records."
+          alternative-text="Get the error details, fix it and repeat the process if user wants to reprocess failuer records."
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+        <lightning-carousel-image
+          src={snapshot5_4}
+          header="All set? Lets navigate to the root"
+          description="Click to navigate back to pinned list view."
+          alternative-text="Click to navigate back to pinned list view."
+          style="width: 60%; height: 60%"
+        >
+        </lightning-carousel-image>
+      </lightning-carousel>
+    </template>
+    <!-- Step 5 END -->
+  </div>
+</template>

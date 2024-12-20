@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Preview_Screen_Button_Name__c</fullName>
+    <description>Button name on the preview screen, use the label representing next action, for example if your bulk action has input flow to capture task fields, name should be &apos;Enter Task Details&apos; or bulk action do not have input flow and only have action flow, label can be &apos;Create Tasks for selected cases&apos;</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Button name on the preview screen, use the label representing next action, for example if your bulk action has input flow to capture task fields, name should be &apos;Enter Task Details&apos; or bulk action do not have input flow and only have action flow, label can be &apos;Create Tasks for selected cases&apos;</inlineHelpText>
+    <label>Preview Screen Button Name</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

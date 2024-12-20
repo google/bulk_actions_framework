@@ -1,0 +1,130 @@
+<template>
+  <div class="container">
+    <lightning-card>
+      <p class="slds-p-horizontal_small">
+        <template lwc:if={spinner}
+          ><lightning-spinner
+            alternative-text="Loading"
+            size="large"
+          ></lightning-spinner
+        ></template>
+        <template lwc:if={validInputs}>
+          <template lwc:if={config}>
+            <div class="slds-clearfix">
+              <div class="slds-text-heading_medium slds-float_left">
+                <lightning-icon
+                  class="title-icn"
+                  icon-name="standard:invocable_action"
+                  alternative-text={config.MasterLabel}
+                  title={config.MasterLabel}
+                  size="large"
+                ></lightning-icon
+                >{config.MasterLabel}
+              </div>
+            </div>
+            <!-- Preview Screen Start-->
+            <template lwc:if={showPreviewScreen}>
+              <div class="slds-clearfix">
+                <div class="slds-float_right">
+                  <lightning-badge
+                    label="Column Details"
+                    icon-name="utility:info"
+                    onmouseover={openHelpText}
+                    onmouseleave={closeHelpText}
+                    class="pointercss"
+                  >
+                  </lightning-badge>
+                  <div class={helpTextClass} role="tooltip">
+                    <div class="slds-popover__body popoverdiv">
+                      <lightning-formatted-rich-text
+                        value={helpText}
+                      ></lightning-formatted-rich-text>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <template lwc:if={nonEligibleRecords}>
+                <c-bulk-action-record-details
+                  columns={columns}
+                  rows={nonEligibleRecords}
+                  table-type={nonEligibleRecordsTableType}
+                  message={getNonEligibleRecordsMessage}
+                  onloadhelptext={updateHelpText}
+                ></c-bulk-action-record-details>
+              </template>
+              <template lwc:if={eligibleRecords}>
+                <c-bulk-action-record-details
+                  columns={columns}
+                  rows={eligibleRecords}
+                  table-type={eligibleRecordsTableType}
+                  onloadhelptext={updateHelpText}
+                ></c-bulk-action-record-details>
+              </template>
+            </template>
+            <!-- Preview Screen End -->
+            <!-- Input Screen  Start -->
+            <template if:true={showInputScreen}>
+              <lightning-flow
+                flow-api-name={config.Input_Flow_API_Name__c}
+                onstatuschange={handleInputFlowStatusChange}
+              >
+              </lightning-flow>
+            </template>
+            <!-- Input Screen  End -->
+            <!-- Result Screen  Start -->
+            <template if:true={showResultScreen}>
+              <template if:true={results}>
+                <c-bulk-action-record-details
+                  columns={resultColumns}
+                  rows={results}
+                  table-type={actionRecordsTableType}
+                  onloadhelptext={updateHelpText}
+                  message={getRecordsUpdatedMessage}
+                ></c-bulk-action-record-details>
+                <lightning-button
+                  class="slds-float_right slds-p-around_small"
+                  variant="brand"
+                  label="Done"
+                  onclick={handleCancel}
+                  icon-name="utility:success"
+                ></lightning-button>
+              </template>
+            </template>
+            <!-- Result Screen  End -->
+            <!-- Action Buttons Footer Start -->
+            <div class="slds-clearfix">
+              <template lwc:if={showPreviewScreen}>
+                <lightning-button
+                  class="slds-float_right slds-p-around_small"
+                  variant="brand"
+                  label="Cancel"
+                  onclick={handleCancel}
+                  icon-name="utility:close"
+                ></lightning-button>
+                <template lwc:if={showPreviewScreenButton}>
+                  <lightning-button
+                    class="slds-float_right slds-p-around_small"
+                    variant="brand"
+                    label={previewScreenNextLabel}
+                    onclick={handleNext}
+                    icon-name="utility:chevronright"
+                  ></lightning-button>
+                </template>
+                <template lwc:if={showReEvalButton}>
+                  <lightning-button
+                    class="slds-float_right slds-p-around_small"
+                    variant="brand"
+                    label="Re-evaluate action criteria"
+                    onclick={refreshPage}
+                    icon-name="utility:refresh"
+                  ></lightning-button>
+                </template>
+              </template>
+            </div>
+            <!-- Action Buttons Footer End -->
+          </template>
+        </template>
+      </p>
+    </lightning-card>
+  </div>
+</template>

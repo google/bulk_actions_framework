@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Flow_API_Name__c</fullName>
+    <description>This is the Action Flow, this flow consists of the core action for the bulk action. This flow is REQUIRED.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>This is the Action Flow, this flow consists of the core action for the bulk action. This flow is REQUIRED.</inlineHelpText>
+    <label>Action Flow API Name</label>
+    <length>255</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Eval_Flow_Error_Message__c</fullName>
+    <description>This is used to notify user output of the evaluation flow, this gives the reason why some of the records from selected records do not meet the eligibility criteria. Use summary of the criteria in evaluation flow to define this message.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>This is used to notify user output of the evaluation flow, this gives the reason why some of the records from selected records do not meet the eligibility criteria. Use summary of the criteria in evaluation flow to define this message.</inlineHelpText>
+    <label>Eval Flow Error Message</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

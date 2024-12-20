@@ -1,0 +1,16 @@
+{
+  "packageDirectories": [
+    {
+      "path": "src/bulk-actions-framework",
+      "default": true
+    },
+    {
+      "path": "src/bulk-actions-setup",
+      "default": false
+    }
+  ],
+  "name": "Bulk_Actions",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "62.0"
+}

@@ -1,0 +1,163 @@
+<template>
+  <div class="slds-box slds-m-around_large">
+    <div class="slds-text-heading_large slds-border_bottom slds-m-bottom_large">
+      Please create below components needed for the bulk action to be configured
+    </div>
+    <div class="slds-grid slds-wrap slds-m-around_large">
+      <div class="slds-col slds-size_2-of-12">
+        <lightning-layout>
+          <lightning-layout-item>
+            <lightning-vertical-navigation
+              selected-item={selectedItem}
+              onselect={handleSelect}
+            >
+              <lightning-vertical-navigation-section>
+                <lightning-vertical-navigation-item
+                  label="Evaluation Flow"
+                  name="Evaluation_Flow"
+                ></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item
+                  label="Input Flow"
+                  name="Input_Flow"
+                ></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item
+                  label="Action Flow"
+                  name="Action_Flow"
+                ></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item
+                  label="Other Setup"
+                  name="Other_Setup"
+                ></lightning-vertical-navigation-item>
+              </lightning-vertical-navigation-section>
+            </lightning-vertical-navigation>
+          </lightning-layout-item>
+        </lightning-layout>
+      </div>
+      <div class="slds-col slds-size_10-of-12">
+        <template lwc:if={isEvalVisible}>
+          <template lwc:if={flowDetails.evalFlow}>
+            <div class="slds-text-heading_medium slds-m-bottom_large">
+              You Need to create an <b>Autolaunched</b> Flow with flow API Name
+              as&nbsp;
+              <lightning-badge
+                label={flowDetails.evalFlow}
+                class="slds-badge_inverse slds-m-bottom_large"
+              ></lightning-badge>
+              <p>
+                Please make sure your flow contains variables mentioned in below
+                table.
+              </p>
+            </div>
+            <lightning-datatable
+              class="slds-m-around_large slds-p-left_large"
+              key-field="Name"
+              data={evalFlowDetails}
+              columns={columns}
+              hide-checkbox-column
+            ></lightning-datatable>
+          </template>
+          <template lwc:else>
+            <div class="slds-text-heading_medium">
+              No work needed, your requirement do not have need of an evaluation
+              flow.
+            </div>
+          </template>
+        </template>
+        <template lwc:if={isInputVisible}>
+          <template lwc:if={flowDetails.inputFlow}>
+            <div class="slds-text-heading_medium">
+              You Need to create a <b>Screen</b> Flow with flow API Name
+              as&nbsp;
+              <lightning-badge
+                label={flowDetails.inputFlow}
+                class="slds-badge_inverse slds-m-bottom_large"
+              ></lightning-badge>
+              <p>
+                Please create output variables for the data which needs to be
+                captured and to be passed to action flow.
+              </p>
+            </div>
+          </template>
+          <template lwc:else>
+            <div class="slds-text-heading_medium">
+              No work needed, your requirement do not have need of an input
+              flow.
+            </div>
+          </template>
+        </template>
+        <template lwc:if={isActionVisible}>
+          <template lwc:if={flowDetails.actionFlow}>
+            <div class="slds-text-heading_medium">
+              You Need to create an <b>Autolaunched</b> Flow with flow API Name
+              as&nbsp;
+              <lightning-badge
+                label={flowDetails.actionFlow}
+                class="slds-badge_inverse slds-m-bottom_large"
+              ></lightning-badge>
+              <template lwc:if={flowDetails.inputFlow}>
+                <p>
+                  Please create same set of input variables for the data which
+                  is captured in an input flow - {flowDetails.inputFlow}.
+                </p>
+                <p>
+                  For example, if your input flow contains 5 output variables,
+                  your action flow must have all thoes 5 variables with the same
+                  name but variable type as Input.
+                </p>
+                Along with all above variables,
+              </template>
+              <p>
+                Please make sure your flow contains variables mentioned in below
+                table.
+              </p>
+            </div>
+            <lightning-datatable
+              class="slds-m-around_large slds-p-left_large"
+              key-field="Name"
+              data={actionFlowDetails}
+              columns={columns}
+              hide-checkbox-column
+            ></lightning-datatable>
+          </template>
+        </template>
+        <template lwc:if={isOtherSetupVisible}>
+          <div class="slds-text-heading_medium">
+            <ul class="slds-list_dotted slds-m-bottom_large">
+              <li class="slds-m-bottom_large">
+                Create a <b>Field Set</b>&nbsp;
+                <lightning-badge
+                  label={flowDetails.fieldSet}
+                  class="slds-badge_inverse"
+                ></lightning-badge
+                >&nbsp; if it is not already present <br />
+                Setup > Object Manager > {flowDetails.bulkActionObject} >Field
+                Sets
+              </li>
+              <li class="slds-m-bottom_large">
+                Create a <b>List Button </b> <br />
+                Setup > Object Manager > {flowDetails.bulkActionObject}
+                >Buttons, Links and Actions > Click on "New Button or Link"
+                button > Select "Display Type" as "List Button" > set "Behavior"
+                to "Display in existing window without sidebar or header" > set
+                "Content Source" as "URL"<br />
+                Enter below url for button<br />
+                <lightning-badge
+                  label={buttonUrl}
+                  class="slds-badge_inverse"
+                ></lightning-badge>
+              </li>
+              <li class="slds-m-bottom_large">
+                Update <b>List View Layout</b> to add newly created List
+                Button<br />
+                Setup > Object Manager > {flowDetails.bulkActionObject} > List
+                View Button Layout > Edit > Select the newly created list button
+                from "Available Buttons" and add it to "Selected Buttons" and
+                click Save
+              </li>
+            </ul>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</template>

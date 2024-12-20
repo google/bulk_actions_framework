@@ -1,0 +1,42 @@
+<template>
+  <div class="slds-clearfix">
+    <template lwc:if={showList}>
+      <div class="slds-float_right">
+        <lightning-button
+          variant="brand"
+          label="Create New Configuration"
+          title="Create New Configuration"
+          onclick={showNewConfig}
+          class="slds-m-right_large"
+        ></lightning-button>
+      </div>
+    </template>
+  </div>
+  <br />
+  <template lwc:if={showList}>
+    <template lwc:if={showNoRecords}>
+      <div class="slds-text-heading_medium">
+        This org do not have any bulk action configurations defined.
+      </div>
+    </template>
+    <template lwc:else>
+      <lightning-datatable
+        key-field="id"
+        data={configs}
+        columns={columns}
+        onrowaction={handleRowAction}
+        hide-checkbox-column
+      >
+      </lightning-datatable>
+    </template>
+  </template>
+  <template lwc:if={showNewScreen}>
+    <c-bulk-action-setup existing-config={selectedConfig}></c-bulk-action-setup>
+  </template>
+  <template lwc:if={showReadOnlyScreen}>
+    <c-bulk-action-setup-config-details
+      config={selectedConfig}
+      mode="readOnly"
+    ></c-bulk-action-setup-config-details>
+  </template>
+</template>

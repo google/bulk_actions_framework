@@ -1,0 +1,196 @@
+<template>
+  <template lwc:if={showEdit}>
+    <c-bulk-action-setup existing-config={config}></c-bulk-action-setup>
+  </template>
+  <template lwc:else>
+    <lightning-card>
+      <div class="slds-clearfix slds-p-around_large">
+        <template lwc:if={config}>
+          <div class="slds-grid slds-wrap">
+            <div class={columnsCSS}>
+              <!-- Config Details Display - START -->
+              <dl class="slds-dl_inline slds-wrap">
+                <dt
+                  class="slds-item_label slds-text-color_weak"
+                  title="Bulk Action Name"
+                >
+                  Bulk Action Name:
+                </dt>
+                <dd
+                  class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                  title={config.MasterLabel}
+                >
+                  {config.MasterLabel}
+                </dd>
+                <dt
+                  class="slds-item_label slds-text-color_weak"
+                  title="Object API Name"
+                >
+                  Object API Name:
+                </dt>
+                <dd
+                  class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                  title={config.Object_API_Name__c}
+                >
+                  {config.Object_API_Name__c}
+                </dd>
+                <template lwc:if={config.Required_Permission__c}>
+                  <dt
+                    class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                    title="Required Permission"
+                  >
+                    Required Permission:
+                  </dt>
+                  <dd
+                    class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                    title={config.Required_Permission__c}
+                  >
+                    {config.Required_Permission__c}
+                  </dd>
+                </template>
+
+                <dt
+                  class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                  title="Preview Page Field Set Name"
+                >
+                  Preview Page Field Set API Name:
+                </dt>
+                <dd
+                  class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                  title={config.Preview_Screen_Field_Set_API_Name__c}
+                >
+                  {config.Preview_Screen_Field_Set_API_Name__c}
+                </dd>
+                <template lwc:if={config.Preview_Screen_Button_Name__c}>
+                  <dt
+                    class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                    title="Preview Page Button Label"
+                  >
+                    Preview Page Button Label:
+                  </dt>
+                  <dd
+                    class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                    title={config.Preview_Screen_Button_Name__c}
+                  >
+                    {config.Preview_Screen_Button_Name__c}
+                  </dd>
+                </template>
+                <template lwc:if={config.Eval_Flow_API_Name__c}>
+                  <dt
+                    class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                    title="Evaluation Flow Name"
+                  >
+                    Evaluation Flow API Name:
+                  </dt>
+                  <dd
+                    class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                    title={config.Eval_Flow_API_Name__c}
+                  >
+                    {config.Eval_Flow_API_Name__c}
+                  </dd>
+                </template>
+                <template lwc:if={config.Eval_Flow_Error_Message__c}>
+                  <dt
+                    class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                    title="Evaluation Flow Message"
+                  >
+                    Evaluation Flow Criteria Message:
+                  </dt>
+                  <dd
+                    class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                    title={config.Eval_Flow_Error_Message__c}
+                  >
+                    {config.Eval_Flow_Error_Message__c}
+                  </dd>
+                </template>
+                <template lwc:if={config.Input_Flow_API_Name__c}>
+                  <dt
+                    class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                    title="Input Flow Name"
+                  >
+                    Input Flow API Name:
+                  </dt>
+                  <dd
+                    class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                    title={config.Input_Flow_API_Name__c}
+                  >
+                    {config.Input_Flow_API_Name__c}
+                  </dd>
+                </template>
+                <dt
+                  class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                  title="Action Flow Name"
+                >
+                  Action Flow API Name:
+                </dt>
+                <dd
+                  class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                  title={config.Action_Flow_API_Name__c}
+                >
+                  {config.Action_Flow_API_Name__c}
+                </dd>
+              </dl>
+              <template lwc:if={config.Custom_Success_Message__c}>
+                <dt
+                  class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                  title="Action Flow Async"
+                >
+                  Is Action Flow executing in async mode?:
+                </dt>
+                <dd
+                  class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                  title={config.Is_Action_Flow_Execution_in_Async_Mode__c}
+                >
+                  {config.Is_Action_Flow_Execution_in_Async_Mode__c}
+                </dd>
+                <dt
+                  class="slds-item_label slds-text-color_weakslds-text-color_weak"
+                  title="Action Flow Message"
+                >
+                  Custom Success Message:
+                </dt>
+                <dd
+                  class="slds-item_detail slds-border_bottom slds-m-bottom_large slds-text-heading_small"
+                  title={config.Custom_Success_Message__c}
+                >
+                  {config.Custom_Success_Message__c}
+                </dd>
+                <!-- Config Details Display - END -->
+              </template>
+            </div>
+            <!-- If triggered from record view action, render the flow details component -->
+            <template lwc:if={isReadOnly}>
+              <div class="slds-col slds-size_8-of-12">
+                <template lwc:if={flowDetails}>
+                  <c-bulk-action-setup-flow-builder-guide
+                    flow-details={flowDetails}
+                  ></c-bulk-action-setup-flow-builder-guide>
+                </template>
+              </div>
+              <div class="slds-col slds-size_12-of-12">
+                <div
+                  class="slds-clearfix slds-m-bottom_large slds-m-around_medium"
+                >
+                  <lightning-button
+                    variant="brand"
+                    label="Edit Configuration"
+                    title="Edit Configuration"
+                    onclick={editConfiguration}
+                    class="slds-m-left_x-small slds-float_right"
+                  ></lightning-button>
+                  <lightning-button
+                    variant="brand"
+                    label="Go Back To Bulk Actions List"
+                    title="Back"
+                    onclick={handleBack}
+                    class="slds-m-left_x-small slds-float_right"
+                  ></lightning-button>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+    </lightning-card>
+  </template>
+</template>

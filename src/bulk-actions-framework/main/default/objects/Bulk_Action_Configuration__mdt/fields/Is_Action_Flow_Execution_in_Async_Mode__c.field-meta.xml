@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Action_Flow_Execution_in_Async_Mode__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if action flow is executing in async mode</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Indicates if action flow is executing in async mode</inlineHelpText>
+    <label>Is Action Flow Execution in Async Mode?</label>
+    <type>Checkbox</type>
+</CustomField>

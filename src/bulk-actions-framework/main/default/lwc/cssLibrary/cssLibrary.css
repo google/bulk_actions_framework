@@ -1,0 +1,65 @@
+.title-icn {
+  --sds-c-icon-color-foreground-default: #ffffff;
+  --sds-c-icon-color-foreground: #787474;
+  --sds-c-icon-color-background: #ffffff;
+}
+
+.pointercss {
+  cursor: pointer;
+}
+
+.popoverdiv {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.popoverdiv::-webkit-scrollbar {
+  width: 3px;
+}
+
+.helptextCustom {
+  position: absolute;
+  top: 120px;
+  right: 20px;
+  width: 450px;
+  height: 200px;
+  color: #f8f4f4;
+}
+
+.eligible-icn {
+  margin-right: 10px;
+  --sds-c-icon-color-foreground-default: rgb(13, 94, 13);
+  --sds-c-icon-color-foreground: white;
+  --sds-c-icon-color-background: rgb(13, 94, 13);
+}
+
+.non-eligible-icn {
+  margin-right: 10px;
+  --sds-c-icon-color-foreground-default: rgb(178, 0, 0);
+  --sds-c-icon-color-foreground: white;
+  --sds-c-icon-color-background: rgb(178, 0, 0);
+}
+
+.outcome {
+  margin-right: 10px;
+  --sds-c-icon-color-foreground-default: rgb(10, 35, 87);
+  --sds-c-icon-color-foreground: white;
+  --sds-c-icon-color-background: rgb(10, 35, 87);
+}
+
+.warning-icn {
+  --sds-c-icon-color-foreground-default: #f8f4f4;
+  --sds-c-icon-color-foreground: #787474;
+  --sds-c-icon-color-background: #f8f4f4;
+}
+
+.error-icn {
+  --sds-c-icon-color-foreground-default: white;
+  --sds-c-icon-color-foreground: white;
+}
+
+.section {
+  border: 1px solid;
+  border-color: #c5c5c5;
+  box-shadow: 1px 2px #787474;
+}
