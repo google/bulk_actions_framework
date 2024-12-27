@@ -1,5 +1,9 @@
 # Bulk Actions Framework
 
+This is not an officially supported Google product. This project is not
+eligible for the [Google Open Source Software Vulnerability Rewards
+Program](https://bughunters.google.com/open-source-security).
+
 **Overview**
 
 The Bulk Actions Framework is a solution designed to streamline and simplify the process of performing the same action on multiple records simultaneously. It addresses the common business requirement of taking bulk actions, such as updating fields, creating tasks, or sending emails, on multiple records at once.
