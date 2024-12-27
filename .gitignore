@@ -1,0 +1,4 @@
+.sfdx/
+.sf/
+
+**/jsconfig.json
