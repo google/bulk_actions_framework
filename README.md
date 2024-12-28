@@ -4,48 +4,82 @@ This is not an officially supported Google product. This project is not
 eligible for the [Google Open Source Software Vulnerability Rewards
 Program](https://bughunters.google.com/open-source-security).
 
-**Overview**
+## Overview
 
-The Bulk Actions Framework is a solution designed to streamline and simplify the process of performing the same action on multiple records simultaneously. It addresses the common business requirement of taking bulk actions, such as updating fields, creating tasks, or sending emails, on multiple records at once.
+The Bulk Actions Framework provides a configurable solution for executing standardized actions on multiple Salesforce records simultaneously. This framework streamlines the development and deployment of bulk operations such as field updates, task creation, and email sending.
 
-**Key Benefits**
+## Key Features
 
-- **Efficiency:** Significantly reduces the development and deployment time required for implementing bulk actions.
-- **Standardization:** Provides a unified and configurable framework for handling various bulk action scenarios.
-- **Flexibility:** Allows developers to define custom evaluation criteria, input flows, and action flows to tailor the framework to specific use cases.
+- **Efficiency:** Reduces development time for implementing bulk actions.
+- **Standardization:** Provides a unified and configurable framework.
+- **Flexibility:** Supports custom evaluation criteria, input flows, and action flows.
 
-**How It Works**
+## Architecture
 
-1.  **Trigger:** A user initiates a bulk action from a list view button, selecting the records they want to apply the action to.
-2.  **Initialization:** A generic "screen" flow is invoked, passing the configuration name for the specific bulk action.
-3.  **Evaluation (Optional):** An evaluation flow can be configured to filter the selected records based on specific criteria, ensuring that only eligible records are processed.
-4.  **Input (Optional):** An input flow can be used to gather additional information from the user before executing the action.
-5.  **Action:** The core action flow is executed, performing the desired operation on the filtered records using the provided input.
-6.  **Results:** The framework displays the results of the bulk action, including any errors or successes, on a results screen.
+![Bulk Actions Framework Components](docs/images/bulkActionsDesign.png)
+_High-Level Design_
 
-**Getting Started**
+The framework utilizes a combination of a generic "screen" flow and a Lightning Web Component (LWC). The process is as follows:
 
-1.  **Install the Package:** Install the Bulk Actions Framework package in your Salesforce org.
-2.  **Configure Custom Metadata:** Create a custom metadata record to define the configuration for your bulk action, including the flows to be used and the fields to display on the preview screen.
-3.  **Create List View Button:** Add a list view button to the relevant object's list view layout and configure it to invoke the bulk action initializer flow.
-4.  **Develop Flows:** Create the necessary evaluation, input, and action flows to implement the logic for your bulk action.
+1.  **Initiation:** A user triggers a bulk action via a list view button, selecting target records.
+1.  **Configuration:** A generic screen flow is invoked, referencing a specific custom metadata configuration.
+1.  **Evaluation (Optional):** An evaluation flow filters records based on defined criteria.
+1.  **Input (Optional):** An input flow gathers additional user input.
+1.  **Execution:** An action flow performs the defined operation on the filtered records.
+1.  **Reporting:** A results screen displays the outcome of the bulk action, including successes and errors.
 
-**Example**
+## Implementation
 
-Let's say you want to create a bulk action to close a set of selected cases.
+1.  **Installation:** Install the Bulk Actions Framework package into your Salesforce org.
+1.  **Flow Development:** Implement custom evaluation, input, and action flows to handle specific business logic.
+1.  **Configuration:** Define bulk action configurations using custom metadata, specifying associated flows and preview fields.
+1.  **Button Setup:** Add a list view button to the desired object, linking it to the framework's initializer flow.
 
-1.  **Configure Custom Metadata:**
-    - Create a Bulk Action Config record with the appropriate label, API name, and flow API names.
-    - Specify the fields to display on the preview screen (e.g., Case Number, Subject, Status).
-2.  **Create List View Button:**
-    - Add a button to the Case list view layout and configure it to invoke the Bulk Action Initializer Flow with the custom metadata record's developer name.
-3.  **Develop Flows:**
-    - **Evaluation Flow (Optional):** Create a flow to check if the case is already closed.
-    - **Input Flow (Optional):** Not needed for this example.
-    - **Action Flow:** Create a flow to update the Case status to "Closed."
+## Component Breakdown
 
-**Additional Considerations**
+The framework leverages three types of flows, all configured via custom metadata:
 
-- **Error Handling:** The framework provides error handling mechanisms to display row-by-row error messages for failed actions.
-- **Metadata Validation:** Unit tests are included to validate the custom metadata configuration and ensure flow API names are valid.
-- **Security:** The framework follows Salesforce security best practices to prevent vulnerabilities like SQL injection and XSS attacks.
+### Evaluation Flow (Optional)
+
+- **Purpose:** Filters records based on specified conditions.
+- **Input:** `record` (Data type of records in scope)
+- **Output:**
+  - `isValid` (Boolean): Indicates if the record meets the criteria.
+  - `outputMessage` (Text, Optional): Additional details or messages.
+
+### Input Flow (Optional)
+
+- **Purpose:** Collects user input via a screen flow.
+- **Input:** None.
+- **Output:** User-defined variables representing gathered input.
+
+### Action Flow (Required)
+
+- **Purpose:** Executes the core action on the filtered records.
+- **Input:**
+  - `record` (Data type of records in scope): Records to be processed
+  - Output Variables from Input Flow (if applicable): Variables used by the action flow.
+- **Output:**
+  - `errorMessage` (Text, Optional): Error message from flow's fault block.
+
+## Error Handling
+
+The framework handles errors via:
+
+- **Unhandled Exceptions:** Errors not caught within the action flow. These are presented via the `result.getErrors()` output of the action flow.
+- **Handled Exceptions (Faults):** Errors handled with a "fault" block in the action flow. `errorMessage` variable is used to surface these types of errors
+
+Both types of errors are displayed on the results screen to the user.
+
+## Setup Wizard
+
+The Bulk Action Setup Wizard simplifies configuration:
+
+1.  **Launch:** Access via the bulk action setup launcher.
+1.  **New Configuration:** Create a new configuration.
+1.  **Parameter Input:** Enter configuration details through a guided interface.
+1.  **Validation:** Input is validated for completeness.
+1.  **Final Review:** A summary screen displays the configuration and outlines the required components to create.
+
+![Bulk Actions Final Screen](docs/images/bulkActionFinalScreen.png)
+_Final Review Screen_
